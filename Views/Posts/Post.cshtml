@@ -1,4 +1,4 @@
-﻿@model List<Post>;
+@model Post;
    
 @{
     ViewData["Title"] = "111";
@@ -9,13 +9,13 @@
 </div>
 
 <ul>
-
-
-@foreach(var post in Model){
+@if(Model != null){
 <li>
-@post.Title
+    @Model.Title
 </li>
-    }
+} else{
+    <h1>Not found</h1>
+}
 
 <br />
 
