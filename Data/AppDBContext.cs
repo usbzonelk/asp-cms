@@ -1,6 +1,5 @@
 using aspCMS.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace aspCMS.Data;
 
