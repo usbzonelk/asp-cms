@@ -1,0 +1,19 @@
+﻿@model List<Post>;
+@{
+    ViewData["Title"] = "111";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Posts</h1>
+</div>
+
+<ul>
+
+@foreach(var post in Model){
+<li>
+    @post.Title
+</li>
+<br />
+}
+
+</ul>
