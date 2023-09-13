@@ -13,7 +13,7 @@
 <div class="row">
 
 @foreach (var post in Model){
-     
+
     <div class="col-md-4">
             <div class="card post-preview">
          <a asp-controller="Posts" asp-action="Index" asp-route-id="@post.Slug">
@@ -24,7 +24,8 @@
                    <a asp-controller="Posts" asp-action="Index" asp-route-id="@post.Slug">
                     <h5 class="card-title mt-2">@post.Title</h5>
                     </a>
-                    <p class="card-text">@post.Content</p>
+                    <p class="card-text">@post.Content          <a asp-controller="Posts" asp-action="Index" asp-route-id="@post.Slug">
+[...]</a></p>
                 </div>
             </div>
     </div>

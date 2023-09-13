@@ -18,6 +18,16 @@ public class HomeController : Controller
 
     {
         List<Post> postsList = _db.Posts.ToList();
+        foreach (var post in postsList)
+        {
+            int length = post.Content.Length;
+            if (length > 60)
+            {
+                length = 60;
+            }
+            post.Content = post.Content.Substring(0, length);
+
+        }
         return View(postsList);
 
     }
