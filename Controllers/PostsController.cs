@@ -14,19 +14,27 @@ public class PostsController : Controller
         _db = db;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(string? id)
     {
 
-        List<Post> postsList = _db.Posts.ToList();
-        return View(postsList);
+
+        if (id == null || id == "fail")
+        {
+            return View(null);
+        }
+        else
+        {
+
+            Post postFound = _db.Posts.Where(post => post.Slug == id).FirstOrDefault();
+            return View(postFound);
+        }
+
 
 
     }
 
     public IActionResult Post(string? id)
     {
-        Console.Write("cefefefe" + id);
-
         if (id == null || id == "fail")
         {
             return View(null);

@@ -22,7 +22,7 @@ namespace aspCMS.Models
 
         public int CategoryId { get; set; }
 
-        public string Slug { get; set;}
+        public string Slug { get; set; }
 
     }
 

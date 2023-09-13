@@ -1,27 +1,27 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
+using aspCMS.Data;
 
 namespace aspCMS.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly AppDBContext _db;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(AppDBContext db)
     {
-        _logger = logger;
+        _db = db;
     }
 
     public IActionResult Index()
+
     {
-        return View();
+        List<Post> postsList = _db.Posts.ToList();
+        return View(postsList);
+
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

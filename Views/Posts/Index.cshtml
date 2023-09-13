@@ -1,23 +1,18 @@
-﻿@model List<Post>;
+﻿@model Post;
    
-@{
-    ViewData["Title"] = "111";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Posts</h1>
-</div>
+@if(Model != null){
+        ViewData["Title"] = @Model.Title;
 
-<ul>
-
-
-@foreach(var post in Model){
-<li>
-@post.Title
-</li>
-    }
-
+    <div class="text-center">
+    <h1 class="display-4">@Model.Title</h1></div>
 <br />
 
+        <p>@Model.Content</p>
 
-</ul>
+} else{
+            ViewData["Title"] = "Not Found";
+
+<div class="text-center">
+    <h1 class="display-4">Not Found</h1></div>}
+
