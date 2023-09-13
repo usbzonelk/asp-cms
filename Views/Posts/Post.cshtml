@@ -1,23 +1,18 @@
 @model Post;
    
-@{
-    ViewData["Title"] = "111";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Posts</h1>
-</div>
-
-<ul>
 @if(Model != null){
-<li>
-    @Model.Title
-</li>
-} else{
-    <h1>Not found</h1>
-}
+        ViewData["Title"] = @Model.Title;
 
+    <div class="text-center">
+    <h1 class="display-4">@Model.Title</h1></div>
 <br />
 
+        <p>@Model.Content</p>
 
-</ul>
+} else{
+            ViewData["Title"] = "Not Found";
+
+<div class="text-center">
+    <h1 class="display-4">Not Found</h1></div>}
+

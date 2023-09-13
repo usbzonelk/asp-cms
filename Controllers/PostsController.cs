@@ -29,8 +29,7 @@ public class PostsController : Controller
 
         if (id == null || id == "fail")
         {
-
-            return View("Index");
+            return View(null);
         }
         else
         {
