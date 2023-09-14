@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Page";
-    var now = DateTime.Now;
+    var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 }
 <div>
     @if (ViewData["Message"] != null)
@@ -29,6 +29,8 @@
             <h2 class="text-primary">Add Post</h2>
             <hr />
         </div>
+        <input asp-for="CreatedAt" type="hidden" value=@now />
+
         <div class="mb-3 row p-1">
             <label asp-for="Title" class="p-0"></label>
             <input asp-for="Title" class="form-control" />

@@ -1,0 +1,78 @@
+@model Post;
+
+@if (Model != null)
+{
+    ViewData["Title"] = @Model.Title;
+
+    <div>
+        @if (ViewData["Message"] != null)
+        {
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @ViewData["Message"]
+            </div>
+        }
+        else if (ViewData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @ViewData["Error"]
+            </div>
+        }
+
+    </div>
+
+
+    <form method="post">
+        <div class="border p-3 mt-4">
+            <div class="row pb-2">
+                <h2 class="text-primary">Edit Post</h2>
+                <hr />
+            </div>
+
+            <input asp-for="PostId" type="hidden" value=@Model.PostId />
+
+            <div class="mb-3 row p-1">
+                <label asp-for="Title" class="p-0"></label>
+                <input asp-for="Title" class="form-control" value=@Model.Title />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row p-1">
+                <label asp-for="Content" class="p-0"></label>
+                <input asp-for="Content" class="form-control" value=@Model.Content />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 row p-1">
+                <label asp-for="Slug" class="p-0"></label>
+                <input asp-for="Slug" class="form-control" value=@Model.Slug />
+                <span asp-validation-for="Slug" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary form-control">Update Post</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary border  form-control">
+                        Back Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+
+}
+else
+{
+    ViewData["Title"] = "Not Found";
+
+    <div class="text-center">
+        <h1 class="display-4">Not Found</h1>
+    </div>
+}
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
