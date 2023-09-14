@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace aspCMS.Models
 {
+
+    [Index(nameof(Post.Slug), IsUnique = true)]
     public class Post
     {
         [Key]
         public int PostId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the title.")]
         public string Title { get; set; }
 
-        [Required]
         public string Content { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -22,6 +24,7 @@ namespace aspCMS.Models
 
         public int CategoryId { get; set; }
 
+        [Required(ErrorMessage = "Please enter the slug.")]
         public string Slug { get; set; }
 
     }

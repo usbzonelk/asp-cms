@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
 using aspCMS.Data;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace aspCMS.Controllers;
 
@@ -29,8 +30,6 @@ public class PostsController : Controller
             return View(postFound);
         }
 
-
-
     }
 
     public IActionResult Post(string? id)
@@ -48,6 +47,36 @@ public class PostsController : Controller
 
     }
 
+    public IActionResult Create()
+    {
+        return View();
+    }
 
+    [HttpPost]
+    public IActionResult Create(Post newPost)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _db.Posts.Add(newPost);
+                _db.SaveChanges();
+                ViewData["Message"] = $"{newPost.Title} was added successfully";
 
+            }
+            catch (Exception e)
+            {
+                var errName = e.GetBaseException().Message;
+                ViewData["Error"] = errName;
+                Console.WriteLine(errName);
+            }
+        }
+        else
+        {
+            Console.WriteLine("\nModel is invalid");
+
+        }
+        return View();
+
+    }
 }
