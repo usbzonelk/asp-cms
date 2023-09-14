@@ -2,7 +2,7 @@
 
 @if (Model != null)
 {
-    ViewData["Title"] = @Model.Title;
+    ViewData["Title"] = "Edit post: " + @Model.Title;
 
     <div>
         @if (ViewData["Message"] != null)

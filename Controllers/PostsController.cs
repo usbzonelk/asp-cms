@@ -102,7 +102,6 @@ public class PostsController : Controller
             try
             {
                 _db.Posts.Update(newPost);
-
                 _db.SaveChanges();
                 Post postEdited = _db.Posts.Where(post => post.PostId == newPost.PostId).FirstOrDefault();
                 ViewData["Message"] = $"{newPost.Title} was added successfully";
@@ -112,6 +111,9 @@ public class PostsController : Controller
             {
                 var errName = e.GetBaseException().Message;
                 ViewData["Error"] = errName;
+                Post postEdited = _db.Posts.Where(post => post.PostId == newPost.PostId).FirstOrDefault();
+                return View(postEdited);
+
             }
         }
         else
