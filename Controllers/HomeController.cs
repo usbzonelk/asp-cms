@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
 using aspCMS.Data;
+using HtmlAgilityPack;
 
 namespace aspCMS.Controllers;
 
@@ -20,12 +21,16 @@ public class HomeController : Controller
         List<Post> postsList = _db.Posts.ToList();
         foreach (var post in postsList)
         {
-            int length = post.Content.Length;
+            var doc = new HtmlDocument();
+            doc.LoadHtml(post.Content);
+            string text = doc.DocumentNode.InnerText.Trim();
+
+            int length = text.Length;
             if (length > 60)
             {
                 length = 60;
             }
-            post.Content = post.Content.Substring(0, length);
+            post.Content = text.Substring(0, length);
 
         }
         return View(postsList);

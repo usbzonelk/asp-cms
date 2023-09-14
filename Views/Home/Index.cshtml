@@ -26,7 +26,7 @@
                         <a asp-controller="Posts" asp-action="Index" asp-route-id="@post.Slug">
                             <h5 class="card-title mt-2">@post.Title</h5>
                         </a>
-                        <p class="card-text">@post.Content
+                        <p class="card-text">@Html.Raw(post.Content)
                             <a asp-controller="Posts" asp-action="Index" asp-route-id="@post.Slug">[...]</a>
                         </p>
                     </div>

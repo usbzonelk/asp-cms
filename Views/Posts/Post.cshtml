@@ -8,7 +8,7 @@
     <h1 class="display-4">@Model.Title</h1></div>
 <br />
 
-        <p>@Model.Content</p>
+        <div>@Html.Raw(Model.Content)</div>
 
 } else{
             ViewData["Title"] = "Not Found";
