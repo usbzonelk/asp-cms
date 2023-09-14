@@ -26,11 +26,9 @@ public class PostsController : Controller
         }
         else
         {
-
             Post postFound = _db.Posts.Where(post => post.Slug == id).FirstOrDefault();
             return View(postFound);
         }
-
     }
 
     public IActionResult Post(string? id)
@@ -62,19 +60,20 @@ public class PostsController : Controller
             {
                 _db.Posts.Add(newPost);
                 _db.SaveChanges();
-                ViewData["Message"] = $"{newPost.Title} was added successfully";
+                TempData["Message"] = $"{newPost.Title} was added successfully";
 
             }
             catch (Exception e)
             {
                 var errName = e.GetBaseException().Message;
-                ViewData["Error"] = errName;
+                TempData["Error"] = errName;
                 Console.WriteLine(errName);
             }
         }
         else
         {
-            Console.WriteLine("\nModel is invalid");
+
+            Console.WriteLine();
 
         }
         return View();
@@ -124,6 +123,4 @@ public class PostsController : Controller
         return View();
 
     }
-
-
 }
