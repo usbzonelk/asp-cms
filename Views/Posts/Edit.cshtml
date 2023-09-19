@@ -5,18 +5,18 @@
     ViewData["Title"] = "Edit post: " + @Model.Title;
 
     <div>
-        @if (TempData["Message"] != null)
+        @if (ViewData["Message"] != null)
         {
             <div class="alert alert-success alert-dismissible" role="alert">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                @TempData["Message"]
+                @ViewData["Message"]
             </div>
         }
-        else if (TempData["Error"] != null)
+        else if (ViewData["Error"] != null)
         {
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                @TempData["Error"]
+                @ViewData["Error"]
             </div>
         }
 
@@ -39,7 +39,7 @@
             </div>
             <div class="mb-3 row p-1">
                 <label asp-for="Content" class="p-0"></label>
-                <input asp-for="Content" class="form-control" value=@Model.Content />
+                <textarea id="default-editor" asp-for="Content">@Model.Content</textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
 
@@ -81,5 +81,12 @@ else
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
+        <script defer>
+            document.addEventListener("DOMContentLoaded", async () => {
+                await tinymce.init({
+                    selector: '#default-editor'
+                });
+            })
+        </script>
     }
 }
