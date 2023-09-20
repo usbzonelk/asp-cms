@@ -16,25 +16,28 @@ namespace aspCMS.Repository
             _db = db;
             dbSet = _db.Set<TEntity>();
         }
-        TEntity IRepository<TEntity>.Get(Expression<Func<TEntity, bool>> findPost)
+        public TEntity Get(Expression<Func<TEntity, bool>> find)
         {
-            throw new NotImplementedException();
-
+            IQueryable<TEntity> query = dbSet;
+            TEntity? found = query.Where(find).FirstOrDefault();
+            return found;
         }
 
-        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            throw new NotImplementedException();
+            IQueryable<TEntity> query = dbSet;
+            List<TEntity> found = query.ToList();
+            return found;
         }
 
-        void IRepository<TEntity>.Add(TEntity entity)
+        public void Add(TEntity entity)
         {
-            throw new NotImplementedException();
+            dbSet.Add(entity);
         }
 
-        void IRepository<TEntity>.Remove(TEntity entity)
+        public void Remove(TEntity entity)
         {
-            throw new NotImplementedException();
+            dbSet.Remove(entity);
         }
     }
 }
