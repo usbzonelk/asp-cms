@@ -25,7 +25,8 @@ namespace aspCMS.Repository.PostsRepository
         public void EditPost(Post newPost)
         {
             dbSet.Update(newPost);
+            _db.SaveChanges();
         }
-    }
 
+    }
 }
