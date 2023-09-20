@@ -4,7 +4,6 @@ using aspCMS.Data;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Options;
-using aspCMS.Repository;
 using aspCMS.Repository.PostsRepository;
 
 namespace aspCMS.Controllers;
@@ -13,15 +12,13 @@ public class PostsController : Controller
 {
     private readonly IPostsRepository postsRepo;
 
-    public PostsController(IPostsRepository postsRepo)
+    public PostsController(IPostsRepository _postsRepo)
     {
-        postsRepo = postsRepo;
+        postsRepo = _postsRepo;
     }
 
     public IActionResult Index(string? id)
     {
-
-
         if (id == null || id == "fail")
         {
             return View(null);
