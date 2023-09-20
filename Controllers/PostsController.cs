@@ -11,9 +11,9 @@ namespace aspCMS.Controllers;
 
 public class PostsController : Controller
 {
-    private readonly PostsRepository postsRepo;
+    private readonly IPostsRepository postsRepo;
 
-    public PostsController(PostsRepository postsRepo)
+    public PostsController(IPostsRepository postsRepo)
     {
         postsRepo = postsRepo;
     }
