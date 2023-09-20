@@ -2,17 +2,18 @@ using aspCMS.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace aspCMS.Data;
-
-public class AppDBContext : DbContext
+namespace aspCMS.Data
 {
-    private readonly ILogger<AppDBContext> _logger;
-
-    public AppDBContext(ILogger<AppDBContext> logger, DbContextOptions<AppDBContext> options) : base(options)
+    public class AppDBContext : DbContext
     {
-        _logger = logger;
+        private readonly ILogger<AppDBContext> _logger;
 
+        public AppDBContext(ILogger<AppDBContext> logger, DbContextOptions<AppDBContext> options) : base(options)
+        {
+            _logger = logger;
+
+        }
+
+        public DbSet<Post> Posts { get; set; }
     }
-
-    public DbSet<Post> Posts { get; set; }
 }
