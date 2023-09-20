@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace aspCMS.Repository;
-public interface IRepository<TEntity>
+public interface IRepository<TEntity> where TEntity : class
 {
-    TEntity GetById(int id);
+    TEntity Get(Expression<Func<TEntity, bool>> findPost);
     IEnumerable<TEntity> GetAll();
     void Add(TEntity entity);
-    void Update(TEntity entity);
     void Remove(TEntity entity);
 }
