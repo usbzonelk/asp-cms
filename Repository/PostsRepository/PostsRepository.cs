@@ -21,6 +21,11 @@ namespace aspCMS.Repository.PostsRepository
         {
             return dbSet.Where(post => post.Slug == slug).FirstOrDefault();
         }
+
+        public void EditPost(Post newPost)
+        {
+            dbSet.Update(newPost);
+        }
     }
 
 }
