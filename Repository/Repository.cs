@@ -23,7 +23,7 @@ namespace aspCMS.Repository
             return found;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public List<TEntity> GetAll()
         {
             IQueryable<TEntity> query = dbSet;
             List<TEntity> found = query.ToList();
