@@ -5,57 +5,22 @@ using Microsoft.EntityFrameworkCore;
 using aspCMS.Data;
 using aspCMS.Models;
 using System.Linq.Expressions;
+using aspCMS.Repository;
 
 namespace aspCMS.Repository.PostsRepository
 {
-    public class PostsRepository : IPostsRepository
+    public class PostsRepository : Repository<Post>, IPostsRepository
     {
-        private readonly AppDBContext _db;
+        private AppDBContext _db;
+        public PostsRepository(AppDBContext db) : base(db)
+        {
+            _db = db;
+        }
+
         public Post GetPostBySlug(string slug)
         {
-            return null;
+            return dbSet.Where(post => post.Slug == slug).FirstOrDefault();
         }
-
-        public void Remove(Post post)
-        {
-
-        }
-        public PostsRepository(AppDBContext context)
-        {
-            _db = context;
-        }
-
-        public Post Get(Expression<Func<Post, bool>> findPost)
-        {
-            return null;
-        }
-
-        public IEnumerable<Post> GetAll()
-        {
-            return _db.Posts.ToList();
-        }
-
-        public void Add(Post newPost)
-        {
-            _db.Posts.Add(newPost);
-            _db.SaveChanges();
-        }
-
-        public void Update(Post updatedPost)
-        {
-            _db.Entry(updatedPost).State = EntityState.Modified;
-            _db.SaveChanges();
-        }
-
-        public void Delete(int postID)
-        {
-            var postToDelete = _db.Posts.Find(postID);
-            if (postToDelete != null)
-            {
-                _db.Posts.Remove(postToDelete);
-                _db.SaveChanges();
-            }
-        }
-
     }
+
 }
