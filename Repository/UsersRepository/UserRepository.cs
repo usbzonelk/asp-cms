@@ -8,10 +8,10 @@ using System.Linq.Expressions;
 
 namespace aspCMS.Repository.UsersRepository
 {
-    public class PostsRepository : Repository<User>, IUsersRepository
+    public class UsersRepository : Repository<User>, IUsersRepository
     {
         private AppDBContext _db;
-        public PostsRepository(AppDBContext db) : base(db)
+        public UsersRepository(AppDBContext db) : base(db)
         {
             _db = db;
         }

@@ -2,6 +2,7 @@ using System.Data.Common;
 using aspCMS.Data;
 using aspCMS.Repository;
 using aspCMS.Repository.PostsRepository;
+using aspCMS.Repository.UsersRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPostsRepository, PostsRepository>();
+builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+
 builder.Services.AddDbContext<AppDBContext>
  (options => options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
