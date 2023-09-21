@@ -33,7 +33,6 @@ public class AdminController : Controller
             var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                // Redirect to a successful login page
                 return RedirectToAction("Index", "Home");
             }
             else
