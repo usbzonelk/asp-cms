@@ -2,32 +2,44 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
 using aspCMS.Data;
-using HtmlAgilityPack;
-using aspCMS.Repository.UsersRepository;
-
+using Microsoft.AspNetCore.Identity;
+using aspCMS.Auth;
+using aspCMS.Models;
 namespace aspCMS.Controllers;
 
 public class AdminController : Controller
 {
-    private readonly IUsersRepository usersRepo;
+    private readonly SignInManager<AdminUsers> _signInManager;
 
-    public AdminController(IUsersRepository _userRepo)
+    public AdminController(SignInManager<AdminUsers> signInManager)
     {
-        usersRepo = _userRepo;
+        _signInManager = signInManager;
     }
 
+    [HttpGet]
     public IActionResult Login()
-
     {
-
         return View();
-
     }
 
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(AdminInfo model)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if (ModelState.IsValid)
+        {
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                // Redirect to a successful login page
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            }
+        }
+
+        return View(model);
     }
 }
