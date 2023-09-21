@@ -31,7 +31,7 @@ public class CategoryController : Controller
         else
         {
 
-            Category categoryFound = _unitOfWork.Category.GetPostBySlug(id);
+            Category categoryFound = _unitOfWork.Categories.GetPostBySlug(id);
             return View(postFound);
         }
 
