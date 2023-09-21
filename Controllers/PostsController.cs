@@ -116,6 +116,7 @@ public class PostsController : Controller
             try
             {
                 _unitOfWork.Posts.EditPost(newPost);
+                _unitOfWork.Save();
                 Post postEdited = _unitOfWork.Posts.Get(post => post.PostId == newPost.PostId);
                 ViewData["Message"] = $"{newPost.Title} was added successfully";
                 return View(postEdited);
