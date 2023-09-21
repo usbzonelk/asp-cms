@@ -36,3 +36,4 @@ release/
 *.suo
 *.user
 *.sln.docstates
+Views/Shared/LoginPartial.html

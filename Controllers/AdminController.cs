@@ -16,7 +16,7 @@ public class AdminController : Controller
         usersRepo = _userRepo;
     }
 
-    public IActionResult Index()
+    public IActionResult Login()
 
     {
 

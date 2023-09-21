@@ -3,7 +3,10 @@ using aspCMS.Data;
 using aspCMS.Repository;
 using aspCMS.Repository.PostsRepository;
 using aspCMS.Repository.UsersRepository;
+using aspCMS.Auth.Users;
+
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,9 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddDbContext<AppDBContext>
  (options => options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddEntityFrameworkStores<AppDBContext>()
+        .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
@@ -31,6 +37,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
