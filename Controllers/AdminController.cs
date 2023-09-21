@@ -12,9 +12,10 @@ public class AdminController : Controller
     private readonly SignInManager<AdminUsers> _signInManager;
     private readonly UserService _adminService;
 
-    public AdminController(SignInManager<AdminUsers> signInManager)
+    public AdminController(SignInManager<AdminUsers> signInManager, UserService adminService)
     {
         _signInManager = signInManager;
+        _adminService = adminService;
     }
 
     [HttpGet]

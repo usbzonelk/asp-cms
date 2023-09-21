@@ -8,33 +8,13 @@ namespace aspCMS.Services;
 public class UserService
 {
     private readonly UserManager<AdminUsers> _userManager;
-    private readonly AppDBContext _dbContext;
 
-    public UserService(UserManager<AdminUsers> userManager, AppDBContext dbContext)
+    public UserService(UserManager<AdminUsers> userManager)
     {
         _userManager = userManager;
-        _dbContext = dbContext;
     }
 
-    public async Task AddUserManuallyAsync(UserManager<AdminUsers> userManager, AppDBContext dbContext)
-    {
-        var newUser = new AdminUsers
-        {
-            UserName = "newuser",
-            Email = "newuser@example.com",
-        };
 
-        var result = await userManager.CreateAsync(newUser, "Password123!");
-
-        if (result.Succeeded)
-        {
-
-            await dbContext.SaveChangesAsync();
-        }
-        else
-        {
-        }
-    }
     public async Task<IdentityResult> CreateUserAsync(AdminUsers user, string password)
     {
 
@@ -43,4 +23,5 @@ public class UserService
 
         return result;
     }
+
 }

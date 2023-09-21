@@ -4,6 +4,7 @@ using aspCMS.Repository;
 using aspCMS.Repository.PostsRepository;
 using aspCMS.Repository.UsersRepository;
 using aspCMS.Auth;
+using aspCMS.Services;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPostsRepository, PostsRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<UserService, UserService>();
 
 builder.Services.AddDbContext<AppDBContext>
  (options => options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
