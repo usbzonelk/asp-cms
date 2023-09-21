@@ -6,7 +6,7 @@ using aspCMS.Repository.PostsRepository;
 namespace aspCMS.Repository;
 public interface IUnitOfWork
 {
-    IPostsRepository PostsRepository { get; }
+    IPostsRepository Posts { get; }
 
     void Save();
 }
