@@ -1,6 +1,7 @@
 using aspCMS.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using aspCMS.Auth;
 
 namespace aspCMS.Data
 {
@@ -12,6 +13,12 @@ namespace aspCMS.Data
         {
             _logger = logger;
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<AdminUsers>().ToTable("Administrators");
         }
 
         public DbSet<Post> Posts { get; set; }

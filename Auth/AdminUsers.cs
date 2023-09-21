@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace aspCMS.Auth.Users
+namespace aspCMS.Auth
 {
-    public class ApplicationUser : IdentityUser
+    public class AdminUsers : IdentityUser
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
