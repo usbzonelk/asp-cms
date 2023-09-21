@@ -3,7 +3,7 @@ using aspCMS.Models;
 using aspCMS.Data;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
 using aspCMS.Repository.PostsRepository;
 
 namespace aspCMS.Controllers;
@@ -47,7 +47,14 @@ public class PostsController : Controller
 
     public IActionResult Create()
     {
-        return View();
+        if (User.Identity.IsAuthenticated)
+        {
+            return View();
+        }
+        else
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 
     [HttpPost]
@@ -82,13 +89,21 @@ public class PostsController : Controller
 
     public IActionResult Edit(string id)
     {
-        string? Slug = id;
-        if (Slug != null)
+        if (User.Identity.IsAuthenticated)
         {
-            Post postToEdit = postsRepo.GetPostBySlug(Slug);
-            return View(postToEdit);
+            string? Slug = id;
+            if (Slug != null)
+            {
+                Post postToEdit = postsRepo.GetPostBySlug(Slug);
+                return View(postToEdit);
+            }
+            return View(null);
         }
-        return View(null);
+        else
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
 
     }
 
