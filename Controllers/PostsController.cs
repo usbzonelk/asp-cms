@@ -10,11 +10,11 @@ namespace aspCMS.Controllers;
 
 public class PostsController : Controller
 {
-    private readonly IUnitOfWork unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public PostsController(IUnitOfWork _unitOfWork)
+    public PostsController(IUnitOfWork unitOfWork)
     {
-        unitOfWork = _unitOfWork;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index(string? id)
@@ -25,7 +25,7 @@ public class PostsController : Controller
         }
         else
         {
-            Post postFound = unitOfWork.Posts.GetPostBySlug(id);
+            Post postFound = _unitOfWork.Posts.GetPostBySlug(id);
             return View(postFound);
         }
     }
@@ -39,7 +39,7 @@ public class PostsController : Controller
         else
         {
 
-            Post postFound = unitOfWork.Posts.GetPostBySlug(id);
+            Post postFound = _unitOfWork.Posts.GetPostBySlug(id);
             return View(postFound);
         }
 
@@ -64,8 +64,8 @@ public class PostsController : Controller
         {
             try
             {
-                unitOfWork.Posts.Add(newPost);
-                unitOfWork.Save();
+                _unitOfWork.Posts.Add(newPost);
+                _unitOfWork.Save();
                 // _db.SaveChanges();
                 TempData["Message"] = $"{newPost.Title} was added successfully";
 
@@ -95,7 +95,7 @@ public class PostsController : Controller
             string? Slug = id;
             if (Slug != null)
             {
-                Post postToEdit = unitOfWork.Posts.GetPostBySlug(Slug);
+                Post postToEdit = _unitOfWork.Posts.GetPostBySlug(Slug);
                 return View(postToEdit);
             }
             return View(null);
@@ -115,8 +115,8 @@ public class PostsController : Controller
         {
             try
             {
-                unitOfWork.Posts.EditPost(newPost);
-                Post postEdited = unitOfWork.Posts.Get(post => post.PostId == newPost.PostId);
+                _unitOfWork.Posts.EditPost(newPost);
+                Post postEdited = _unitOfWork.Posts.Get(post => post.PostId == newPost.PostId);
                 ViewData["Message"] = $"{newPost.Title} was added successfully";
                 return View(postEdited);
             }
@@ -124,7 +124,7 @@ public class PostsController : Controller
             {
                 var errName = e.GetBaseException().Message;
                 ViewData["Error"] = errName;
-                Post postEdited = unitOfWork.Posts.Get(post => post.PostId == newPost.PostId);
+                Post postEdited = _unitOfWork.Posts.Get(post => post.PostId == newPost.PostId);
                 return View(postEdited);
 
             }
