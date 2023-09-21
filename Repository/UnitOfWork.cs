@@ -6,7 +6,7 @@ using aspCMS.Repository.PostsRepository;
 namespace aspCMS.Repository;
 public class UnitOfWork : IUnitOfWork
 {
-    public IPostsRepository PostsRepository => throw new NotImplementedException();
+    public IPostsRepository PostsRepository {get; private set;}
 
 
 

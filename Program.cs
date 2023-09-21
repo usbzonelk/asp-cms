@@ -2,7 +2,6 @@ using System.Data.Common;
 using aspCMS.Data;
 using aspCMS.Repository;
 using aspCMS.Repository.PostsRepository;
-using aspCMS.Repository.UsersRepository;
 using aspCMS.Auth;
 using aspCMS.Services;
 
@@ -14,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPostsRepository, PostsRepository>();
-builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<UserService, UserService>();
 
 builder.Services.AddDbContext<AppDBContext>
