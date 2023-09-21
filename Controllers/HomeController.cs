@@ -3,23 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
 using aspCMS.Data;
 using HtmlAgilityPack;
-using aspCMS.Repository.PostsRepository;
+using aspCMS.Repository;
 
 namespace aspCMS.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IPostsRepository postsRepo;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public HomeController(IPostsRepository _posts)
+    public HomeController(IUnitOfWork unitOfWork)
     {
-        postsRepo = _posts;
+        _unitOfWork = unitOfWork;
     }
 
     public IActionResult Index()
 
     {
-        List<Post> postsList = postsRepo.GetAll();
+        List<Post> postsList = _unitOfWork.Posts.GetAll();
         foreach (var post in postsList)
         {
             var doc = new HtmlDocument();
