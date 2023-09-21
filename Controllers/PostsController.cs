@@ -66,7 +66,6 @@ public class PostsController : Controller
             {
                 _unitOfWork.Posts.Add(newPost);
                 _unitOfWork.Save();
-                // _db.SaveChanges();
                 TempData["Message"] = $"{newPost.Title} was added successfully";
 
             }

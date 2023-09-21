@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace aspCMS.Models
 {
@@ -22,11 +23,15 @@ namespace aspCMS.Models
 
         // Foreign key relationship with User
         public int AuthorId { get; set; }
-
-        public int CategoryId { get; set; }
+    
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
 
         [Required(ErrorMessage = "Please enter the slug.")]
         public string Slug { get; set; }
+
+        public string CoverPhoto { get; set; }
+
 
     }
 
@@ -56,6 +61,17 @@ namespace aspCMS.Models
 
         public int PostId { get; set; }
         public int AuthorId { get; set; }
+
+    }
+
+    public class Category
+    {
+        [Key]
+        public int CategoryId { get; set; }
+
+        [Required]
+        public string CategoryName { get; set; }
+
 
     }
 }
