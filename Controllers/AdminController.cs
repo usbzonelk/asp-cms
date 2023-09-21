@@ -4,11 +4,13 @@ using aspCMS.Models;
 using aspCMS.Data;
 using Microsoft.AspNetCore.Identity;
 using aspCMS.Auth;
-namespace aspCMS.Controllers;
+using aspCMS.Services;
 
+namespace aspCMS.Controllers;
 public class AdminController : Controller
 {
     private readonly SignInManager<AdminUsers> _signInManager;
+    private readonly UserService _adminService;
 
     public AdminController(SignInManager<AdminUsers> signInManager)
     {
@@ -34,6 +36,7 @@ public class AdminController : Controller
                 return RedirectToAction("Index", "Home");
             }
             else
+
             {
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
@@ -41,4 +44,36 @@ public class AdminController : Controller
 
         return View(model);
     }
+
+    public async Task<IActionResult> Register(AdminRegister model)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = new AdminUsers
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+            };
+
+            var result = await _adminService.CreateUserAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                // Sign in the user after registration if desired
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                // Redirect to a success page or the home page
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        // If registration fails or there are validation errors, redisplay the registration form with errors
+        return View(model);
+    }
+
 }
