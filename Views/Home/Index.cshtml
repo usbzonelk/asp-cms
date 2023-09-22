@@ -22,7 +22,7 @@
                         <img src="https://placehold.co/600x400" class="card-img-top img-fluid" alt="Post Image 1">
                     </a>
                     <div class="card-body">
-                        <span class="badge badge-primary">@post.CategoryId</span>
+                        <span class="badge badge-primary">@post.Category.CategoryName</span>
                         <a asp-controller="Posts" asp-action="Index" asp-route-id="@post.Slug">
                             <h5 class="card-title mt-2">@post.Title</h5>
                         </a>

@@ -79,7 +79,7 @@ public class PostsController : Controller
         else
         {
 
-            Console.WriteLine();
+            Console.WriteLine("l");
 
         }
         return View();

@@ -31,11 +31,11 @@ public class CategoryController : Controller
         else
         {
 
-            Category categoryFound = _unitOfWork.Categories.GetPostBySlug(id);
-            return View(postFound);
+            Category categoryFound = _unitOfWork.Categories.GetCategoryByName(id);
+            return View(categoryFound);
         }
 
     }
 
-    
+
 }

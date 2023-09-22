@@ -22,7 +22,6 @@ namespace aspCMS.Models
         public DateTime CreatedAt { get; set; }
 
         // Foreign key relationship with User
-        public int AuthorId { get; set; }
     
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
