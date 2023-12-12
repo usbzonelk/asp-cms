@@ -30,6 +30,12 @@ namespace aspCMS.Repository
             return found;
         }
 
+        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> find)
+        {
+            IQueryable<TEntity> query = dbSet;
+            List<TEntity>? found = query.Where(find).ToList();
+            return found;
+        }
         public void Add(TEntity entity)
         {
             dbSet.Add(entity);
@@ -39,5 +45,7 @@ namespace aspCMS.Repository
         {
             dbSet.Remove(entity);
         }
+
+
     }
 }
