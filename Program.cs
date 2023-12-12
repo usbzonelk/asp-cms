@@ -1,7 +1,6 @@
 using System.Data.Common;
 using aspCMS.Data;
 using aspCMS.Repository;
-using aspCMS.Repository;
 using aspCMS.Auth;
 using aspCMS.Services;
 
@@ -14,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<UserService, UserService>();
+
 
 builder.Services.AddDbContext<AppDBContext>
  (options => options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));

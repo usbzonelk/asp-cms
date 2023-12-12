@@ -22,13 +22,14 @@ namespace aspCMS.Models
         public DateTime CreatedAt { get; set; }
 
         // Foreign key relationship with User
-    
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
         [Required(ErrorMessage = "Please enter the slug.")]
         public string Slug { get; set; }
 
+        [Required(AllowEmptyStrings = true)]
         public string CoverPhoto { get; set; }
 
 
@@ -68,7 +69,7 @@ namespace aspCMS.Models
         [Key]
         public int CategoryId { get; set; }
 
-        [Required]
+        //   [Required]
         public string CategoryName { get; set; }
 
 

@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
-using aspCMS.Data;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 using aspCMS.Repository;
 
 namespace aspCMS.Controllers;
@@ -60,11 +56,20 @@ public class PostsController : Controller
     [HttpPost]
     public IActionResult Create(Post newPost)
     {
+
         if (ModelState.IsValid)
         {
             try
             {
                 _unitOfWork.Posts.Add(newPost);
+                if (newPost.Category != null)
+                {
+                    int catId = newPost.Category.CategoryId;
+                    if (_unitOfWork.Categories.Get(newCat => newCat.CategoryId == catId) == null)
+                    {
+                        _unitOfWork.Categories.Add(newPost.Category);
+                    }
+                }
                 _unitOfWork.Save();
                 TempData["Message"] = $"{newPost.Title} was added successfully";
 
@@ -131,8 +136,18 @@ public class PostsController : Controller
         }
         else
         {
-            Console.WriteLine("\nModel is invalid");
-
+            foreach (var key in ModelState.Keys)
+            {
+                var errors = ModelState[key].Errors;
+                if (errors.Count > 0)
+                {
+                    Console.WriteLine($"Validation errors for {key}:");
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"- {error.ErrorMessage}");
+                    }
+                }
+            }
         }
         return View();
 
