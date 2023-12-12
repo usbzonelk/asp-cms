@@ -28,7 +28,7 @@ public class CategoryController : Controller
         }
         else
         {
-            List<Post> postsWithCategory = _unitOfWork.Posts.GetAll();
+            List<Post> postsWithCategory = _unitOfWork.Posts.GetAll(post => post.Category.CategoryId.ToString() == id.ToString());
             return View(postsWithCategory);
         }
 
