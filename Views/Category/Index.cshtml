@@ -3,12 +3,27 @@
 @{
     ViewData["Title"] = "Categories";
 }
+<form method="post" action="">
 
-<script>
-    var i = @User;
-    console.log(i)
-</script>
+    <div class="form-group">
+        <label for="NewCategory">Add a New Category</label>
+        <div class="input-group">
+            <input type="text" required class="form-control" id="NewCategory" name="NewCategory"
+                placeholder="Enter new category name" />
+            <div class="input-group-append">
+                <input class="btn btn-primary" type="submit" id="btnSaveNewCategory" />
+            </div>
+        </div>
+    </div>
+</form>
 
+
+@section Scripts {
+    <script>
+
+
+    </script>
+}
 <div class="container mt-5">
     <div class="row">
 

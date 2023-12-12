@@ -33,6 +33,58 @@ public class CategoryController : Controller
         }
 
     }
+    public IActionResult Edit(string? id)
+    {
+        if (id != null || id != "fail")
+
+        {
+            Category chosenCategory = _unitOfWork.Categories.Get(category => category.CategoryId.ToString() == id.ToString());
+            if (chosenCategory != null)
+            {
+                return View(chosenCategory);
+            }
+        }
+        return View(null);
+
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Category userCategory)
+    {
+        if (ModelState.IsValid)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    _unitOfWork.Categories.EditCategory(userCategory);
+                    _unitOfWork.Save();
+                    Category UpdatedCategory = _unitOfWork.Categories.Get(category => category.CategoryName == userCategory.CategoryName);
+                    ViewData["Message"] = $"{userCategory.CategoryName} was updated successfully";
+                    return View(UpdatedCategory);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
+        else
+        {
+            foreach (var key in ModelState.Keys)
+            {
+                var errors = ModelState[key].Errors;
+                if (errors.Count > 0)
+                {
+                    Console.WriteLine($"Validation errors for {key}:");
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"- {error.ErrorMessage}");
+                    }
+                }
+            }
+        }
+        return View("Index");
+    }
 
 
 }
