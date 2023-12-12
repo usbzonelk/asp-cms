@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
-using aspCMS.Data;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
 using aspCMS.Repository;
 
 namespace aspCMS.Controllers;
@@ -17,12 +13,14 @@ public class CategoryController : Controller
         _unitOfWork = unitOfWork;
     }
 
-    public IActionResult Index(string? id)
+    public IActionResult Index()
     {
-        return RedirectToAction("Category", "Category");
+        List<Category> categories = _unitOfWork.Categories.GetAll();
+
+        return View(categories);
     }
 
-    public IActionResult Category(string? id)
+    public IActionResult Posts(string? id)
     {
         if (id == null || id == "fail")
         {
@@ -30,9 +28,8 @@ public class CategoryController : Controller
         }
         else
         {
-
-            Category categoryFound = _unitOfWork.Categories.GetCategoryByName(id);
-            return View(categoryFound);
+            List<Post> postsWithCategory = _unitOfWork.Posts.GetAll();
+            return View(postsWithCategory);
         }
 
     }
