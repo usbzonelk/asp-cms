@@ -19,7 +19,43 @@ public class CategoryController : Controller
 
         return View(categories);
     }
-
+    [HttpPost]
+    public IActionResult Index(Category userCategory)
+    {
+        if (ModelState.IsValid)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                try
+                {
+                    _unitOfWork.Categories.Add(userCategory);
+                    _unitOfWork.Save();
+                    List<Category> categories = _unitOfWork.Categories.GetAll();
+                    ViewData["Message"] = $"{userCategory.CategoryName} was added successfully";
+                    return View(categories);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
+        else
+        {
+            foreach (var key in ModelState.Keys)
+            {
+                var errors = ModelState[key].Errors;
+                if (errors.Count > 0)
+                {
+                    Console.WriteLine($"Validation errors for {key}:");
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"- {error.ErrorMessage}");
+                    }
+                }
+            }
+        }
+        return View("Index");
+    }
     public IActionResult Posts(string? id)
     {
         if (id == null || id == "fail")

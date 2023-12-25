@@ -1,8 +1,26 @@
 @model List<Category>;
-
+@Model.Count;
 @{
     ViewData["Title"] = "Categories";
 }
+
+<div>
+    @if (ViewData["Message"] != null)
+    {
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @ViewData["Message"]
+        </div>
+    }
+    else if (ViewData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            @ViewData["Error"]
+        </div>
+    }
+
+</div>
 <form method="post" action="">
 
     <div class="form-group">
@@ -26,38 +44,38 @@
 }
 <div class="container mt-5">
     <div class="row">
-
-        @foreach (var category in Model)
-        {
-            <div class="col-md-4">
-                <div class="card post-preview">
-                    <a asp-controller="Category" asp-action="Posts" asp-route-id="@category.CategoryName">
-                    </a>
-                    <div class="card-body">
-                        <span class="badge badge-primary"></span>
-
+        @if (Model.Count > 0){
+            @foreach (var category in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card post-preview">
                         <a asp-controller="Category" asp-action="Posts" asp-route-id="@category.CategoryName">
-                            <h5 class="card-title mt-2">@category.CategoryName</h5>
                         </a>
+                        <div class="card-body">
+                            <span class="badge badge-primary"></span>
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="mt-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <a class="btn btn-info btn-sm" asp-controller="Category" asp-action="Edit"
-                                        asp-route-id="@category.CategoryId">Edit</a>
+                            <a asp-controller="Category" asp-action="Posts" asp-route-id="@category.CategoryName">
+                                <h5 class="card-title mt-2">@category.CategoryName</h5>
+                            </a>
 
-                                    <form asp-controller="Category" asp-action="Delete" method="post">
-                                        <input type="hidden" name="id" value="@category.CategoryId" />
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="mt-2">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a class="btn btn-info btn-sm" asp-controller="Category" asp-action="Edit"
+                                            asp-route-id="@category.CategoryId">Edit</a>
+
+                                        <form asp-controller="Category" asp-action="Delete" method="post">
+                                            <input type="hidden" name="id" value="@category.CategoryId" />
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-
+            }
+}
     </div>
 </div>

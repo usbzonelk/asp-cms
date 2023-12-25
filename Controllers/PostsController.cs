@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using aspCMS.Models;
 using aspCMS.Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace aspCMS.Controllers;
 
@@ -12,7 +14,12 @@ public class PostsController : Controller
     {
         _unitOfWork = unitOfWork;
     }
+    public class CreatePostModal
+    {
+        public Post post;
+        public List<Category> categories;
 
+    }
     public IActionResult Index(string? id)
     {
         if (id == null || id == "fail")
@@ -45,6 +52,10 @@ public class PostsController : Controller
     {
         if (User.Identity.IsAuthenticated)
         {
+            List<Category> Categories = _unitOfWork.Categories.GetAll();
+            List<String> SelectedCategories = Categories.Select(category => category.CategoryName.ToString()).ToList();
+            TempData["CategoriesAll"] = SelectedCategories.ToList<string>();
+
             return View();
         }
         else

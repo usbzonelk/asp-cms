@@ -1,4 +1,5 @@
 using System;
+using aspCMS.Models;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using aspCMS.Data;
@@ -15,6 +16,7 @@ namespace aspCMS.Repository
         {
             _db = db;
             dbSet = _db.Set<TEntity>();
+
         }
         public TEntity Get(Expression<Func<TEntity, bool>> find)
         {
